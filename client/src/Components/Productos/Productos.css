@@ -1,0 +1,118 @@
+.productos h1 {
+    text-align: center;
+    margin-top: 35px;
+    color: #0071DC;
+    font-family: "DM Sans";
+    font-weight: 700;
+}
+
+.subdiv-prodCard {
+    border: 2px solid #0071DC;
+    font-family: "DM Sans";
+    text-align: center;
+    border-style: none solid solid solid;
+}
+
+.filters {
+    margin-top: 30px;
+}
+
+.filter-form {
+    font-family: "Raleway";
+}
+
+.filter-form select {
+    border-radius: 0;
+}
+
+.filter-form select:active {
+    box-shadow: none;
+}
+
+.searchForm {
+    font-family: "Raleway";
+}
+
+.searchForm input {
+    width: 300px;
+    display: inline-block;
+    border-radius: 0;
+}
+
+.searchForm button {
+    margin-left: 5px;
+    border-radius: 0;
+}
+
+.searchForm label {
+    margin-bottom: 0.5rem;
+}
+
+.catProd {
+    padding-top: 15px;
+    color: #9E9E9E;
+    margin-bottom: 0;
+}
+
+.nombreProd {
+    font-size: 20px;
+    margin-bottom: 0;
+    font-family: "Raleway";
+}
+
+.precioProd {
+    font-weight: 700;
+}
+
+#carrBtn {
+    font-family: "DM Sans";
+    border: 2px solid #0071DC;
+    background-color: #0071DC;
+    color: #FFFFFF;
+    padding: 5px 15px 5px 15px;
+    margin: 5px 10px;
+    margin-bottom: 20px;
+}
+
+#comprarBtn {
+    font-family: "DM Sans";
+    border: 2px solid #0071DC;
+    background-color: #FFFFFF;
+    color: #0071DC;
+    padding: 5px 15px 5px 15px;
+    margin: 5px 10px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+    .productCard {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .filter-form {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .searchForm {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+    }
+
+    .searchForm input {
+        width: 100%;
+    }
+
+    .searchForm button {
+        width: 80%;
+        margin-top: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
