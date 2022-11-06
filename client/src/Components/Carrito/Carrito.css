@@ -1,0 +1,74 @@
+.cartCard select {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.cartCard .subdiv-prodCard {
+    border: 2px solid #000000;
+    border-style: none solid solid solid;
+}
+
+.carr-subtotal h2 {
+    font-weight: 700;
+}
+
+.carr-subtotal h3 {
+    font-weight: 100;
+    font-size: 22px;
+}
+
+.cartCard .nombreProd {
+    font-size: 18px;
+}
+
+.cartCard .precioProd {
+    font-weight: 100;
+    font-size: 16px;
+}
+
+.cartCard label {
+    font-weight: 100;
+    margin-bottom: 2px;
+    font-size: 14px;
+}
+
+#delBtn {
+    font-weight: 700;
+    background-color: #FFFFFF;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+}
+
+hr {
+    border-top: 2px solid;
+    margin-top: 50px;
+}
+
+.carr-subtotal {
+    font-family: "DM Sans";
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#payBtn {
+    color: #FFFFFF;
+    background-color: #0071DC;
+    border: none;
+    font-size: 20px;
+    padding: 5px 75px;
+}
+
+@media (max-width: 767px) {
+    .cartCard {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

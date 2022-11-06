@@ -146,6 +146,10 @@
     font-size: 18px;
 }
 
+.registerLink p {
+    margin-bottom: 0;
+}
+
 .registerLink span {
     font-weight: bold;
     color: #0071DC;

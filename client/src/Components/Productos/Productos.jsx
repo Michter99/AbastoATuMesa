@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Axios from "axios";
 import Producto from "./Producto";
 
 function Productos() {
@@ -9,7 +9,7 @@ function Productos() {
     const [productoABuscar, setProductoABuscar] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:3001/get/productos").then((response) => {
+        Axios.get("http://localhost:3001/get/productos").then((response) => {
             setProductos(response.data);
         });
     }, []);
@@ -18,11 +18,11 @@ function Productos() {
         e.preventDefault();
         if (productoABuscar) {
             setFilterCondition("Ninguno");
-            axios.get(`http://localhost:3001/get/productosFiltrados/${productoABuscar}`).then((response) => {
+            Axios.get(`http://localhost:3001/get/productosFiltrados/${productoABuscar}`).then((response) => {
                 setProductos(response.data);
             });
         } else {
-            axios.get("http://localhost:3001/get/productos").then((response) => {
+            Axios.get("http://localhost:3001/get/productos").then((response) => {
                 setProductos(response.data);
             });
         }

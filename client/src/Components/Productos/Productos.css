@@ -84,6 +84,25 @@
     margin-bottom: 20px;
 }
 
+.productCard select {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border-radius: 0;
+    border: 2px solid #515354;
+    color: #515354;
+    height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.productCard label {
+    font-weight: 100;
+    margin-bottom: 2px;
+    color: #515354;
+}
+
 @media (max-width: 767px) {
     .productCard {
         width: 80%;
