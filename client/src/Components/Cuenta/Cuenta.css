@@ -1,0 +1,57 @@
+.personal-info {
+    font-family: "DM Sans";
+}
+
+.personal-info h3 {
+    font-weight: 700;
+    font-size: 25px;
+    letter-spacing: 1.5px;
+}
+
+.personal-info h4 {
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.personal-info p {
+    font-family: "Raleway";
+    font-size: 20px;
+}
+
+#editarCuenta {
+    border: 2px solid #000000;
+    background-color: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 20px;
+    margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+    .personal-info {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .personal-info h3 {
+        text-align: center;
+        font-size: 22px;
+        letter-spacing: 0;
+    }
+
+    .personal-info h4 {
+        font-size: 18px;
+    }
+
+    .personal-info p {
+        font-size: 15px;
+    }
+
+    #editarCuenta {
+        font-size: 16px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+}

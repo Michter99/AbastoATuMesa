@@ -68,6 +68,14 @@ app.post('/insert/cliente', (req, res) => {
     });
 });
 
+app.post('/get/cuenta', (req, res) => {
+    user_id = hash(req.body.user_email);
+    const sqlSelect = "SELECT * FROM clientes WHERE id_cliente = ?";
+    db.query(sqlSelect, user_id, (err, result) => {
+        res.send(result);
+    });
+});
+
 app.put('/update/carrito', (req, res) => {
     const user_email = req.body.user_email;
     const id_producto = req.body.id_producto;
@@ -78,6 +86,11 @@ app.put('/update/carrito', (req, res) => {
     db.query(sqlUpdate, [cantidad, id_producto, id_cliente], (err, result) => {
         console.log(err);
     })
+
+    const sqlSelect = "SELECT * FROM carritos JOIN productos on carritos.id_producto = productos.id_producto WHERE id_cliente = ?";
+    db.query(sqlSelect, id_cliente, (err, result) => {
+        res.send(result);
+    });
 });
 
 app.delete('/delete/carrito/:user_email/:id_producto', (req, res) => {
@@ -88,6 +101,11 @@ app.delete('/delete/carrito/:user_email/:id_producto', (req, res) => {
     const sqlDelete = "DELETE FROM carritos WHERE id_producto = ? AND id_cliente = ?";
     db.query(sqlDelete, [id_producto, id_cliente], (err, result) => {
         console.log(err);
+    });
+
+    const sqlSelect = "SELECT * FROM carritos JOIN productos on carritos.id_producto = productos.id_producto WHERE id_cliente = ?";
+    db.query(sqlSelect, id_cliente, (err, result) => {
+        res.send(result);
     });
 });
 

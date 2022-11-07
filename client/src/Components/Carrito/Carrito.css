@@ -23,11 +23,12 @@
 
 .cartCard .nombreProd {
     font-size: 18px;
+    font-weight: bold;
 }
 
 .cartCard .precioProd {
     font-weight: 100;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .cartCard label {
