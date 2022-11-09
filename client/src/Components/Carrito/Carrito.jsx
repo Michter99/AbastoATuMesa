@@ -34,6 +34,15 @@ const Carrito = () => {
         });
     }, []);
 
+    const comprarProductos = () => {
+        window.open('https://stripe.com/mx', '_blank', 'resizable=yes');
+        Axios.post("http://localhost:3001/insert/orden", {
+            productos: productos
+        }).then((response) => {
+            setProductos(response.data)
+        });
+    };
+
     useEffect(() => {
         Axios.post("http://localhost:3001/get/carrito", {
             user_email: getAuth().currentUser.email
@@ -54,9 +63,9 @@ const Carrito = () => {
                 productos.length === 0 ? <div></div> :
                     <div className="carr-subtotal">
                         <hr />
-                        <h3>SUBTOTAL</h3>
+                        <h3 className="mt-5">SUBTOTAL</h3>
                         <h2>$ {calcularTotal}</h2>
-                        <button id="payBtn" onClick={() => window.open('https://stripe.com/mx', '_blank', 'resizable=yes')}>PAGAR</button>
+                        <button className="mt-3" id="payBtn" onClick={comprarProductos}>PAGAR</button>
                     </div>
             }
         </div>

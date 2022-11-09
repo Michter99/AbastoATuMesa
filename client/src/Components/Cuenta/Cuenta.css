@@ -1,5 +1,11 @@
 .personal-info {
     font-family: "DM Sans";
+    border: 2px solid #000000;
+    padding: 30px 50px;
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .personal-info h3 {
@@ -25,13 +31,94 @@
     font-weight: bold;
     padding: 2px 20px;
     margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
-@media (max-width: 767px) {
+#editarCuenta:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+#nombreIpt {
+    width: 100%;
+    border: 2px solid;
+    height: 35px;
+}
+
+#domIpt {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 2px solid;
+    height: 35px;
+}
+
+#cancelar {
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 700;
+    border: 2px solid #000000;
+    margin-right: 10px;
+}
+
+#confirmar {
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-top: 10px;
+    border: 2px solid #000000;
+}
+
+.botones {
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pedidos {
+    font-family: "DM Sans";
+}
+
+.pedidos h3 {
+    font-weight: bold;
+    font-size: 25px;
+    letter-spacing: 1.5px;
+}
+
+.pedidos h1 {
+    font-size: 35px;
+    text-align: center;
+}
+
+.pedido {
+    border: 2px solid #0d6efd;
+    text-align: center;
+    padding: 15px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pedido h5 {
+    color: #0d6efd
+}
+
+.pedido p {
+    color: #545454;
+}
+
+@media (max-width: 1200px) {
     .personal-info {
         width: 90%;
         margin-left: auto;
         margin-right: auto;
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
 
     .personal-info h3 {
@@ -53,5 +140,34 @@
         margin-left: auto;
         margin-right: auto;
         display: block;
+        margin-top: 25px;
+        width: 50%;
+    }
+
+    #domIpt {
+        word-wrap: break-word;
+        margin-bottom: 0;
+    }
+
+    #cancelar {
+        background-color: #FFFFFF;
+        color: #000000;
+        border: 2px #000000 solid;
+        font-size: 15.4px;
+    }
+
+    #confirmar {
+        margin-top: 30px;
+        border: 2px solid #000000;
+        font-size: 15.4px;
+    }
+
+    .pedido {
+        width: 100%;
+    }
+
+    .pedidos h1 {
+        text-align: center;
+        font-size: 25px;
     }
 }

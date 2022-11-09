@@ -61,7 +61,7 @@ function Productos() {
                 {productos.length > 0 ? (productos.map((producto) => {
                     if (producto.categoria === filterCondition || filterCondition === "Ninguno")
                         return <Producto key={producto.id_producto} {...producto} />
-                })) : <h1>Producto no encontrado</h1>}
+                })) : <h1 style={{ color: 'black' }}>Productos no encontrados</h1>}
             </div>
         </div>
     );

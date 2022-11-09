@@ -31,7 +31,7 @@ app.post('/insert/carrito', (req, res) => {
 
     const sqlInsert = "INSERT INTO carritos (id_producto, id_cliente, cantidad) VALUES (?,?,?);"
     db.query(sqlInsert, [id_producto, user_id, cantidad], (err, result) => {
-        console.log(err);
+        if (err) console.log(err);
     });
 });
 
@@ -64,7 +64,7 @@ app.post('/insert/cliente', (req, res) => {
 
     const sqlInsert = "INSERT INTO clientes (id_cliente, correo) VALUES (?,?);"
     db.query(sqlInsert, [user_id, user_email], (err, result) => {
-        console.log(err);
+        if (err) console.log(err);
     });
 });
 
@@ -84,7 +84,7 @@ app.put('/update/carrito', (req, res) => {
 
     const sqlUpdate = "UPDATE carritos SET cantidad = ? WHERE id_producto = ? AND id_cliente = ?";
     db.query(sqlUpdate, [cantidad, id_producto, id_cliente], (err, result) => {
-        console.log(err);
+        if (err) console.log(err);
     })
 
     const sqlSelect = "SELECT * FROM carritos JOIN productos on carritos.id_producto = productos.id_producto WHERE id_cliente = ?";
@@ -93,6 +93,24 @@ app.put('/update/carrito', (req, res) => {
     });
 });
 
+app.put('/update/infoPer', (req, res) => {
+    const user_email = req.body.user_email;
+    const nombre = req.body.nombre;
+    const domicilio = req.body.domicilio;
+    const id_cliente = hash(user_email);
+
+    const sqlUpdate = "UPDATE clientes SET nombre = ?, direccion = ? WHERE id_cliente = ?";
+    db.query(sqlUpdate, [nombre, domicilio, id_cliente], (err, result) => {
+        if (err) console.log(err);
+    })
+
+    const sqlSelect = "SELECT * FROM clientes WHERE id_cliente = ?";
+    db.query(sqlSelect, id_cliente, (err, result) => {
+        res.send(result);
+    });
+});
+
+
 app.delete('/delete/carrito/:user_email/:id_producto', (req, res) => {
     const user_email = req.params.user_email;
     const id_producto = req.params.id_producto;
@@ -100,10 +118,73 @@ app.delete('/delete/carrito/:user_email/:id_producto', (req, res) => {
 
     const sqlDelete = "DELETE FROM carritos WHERE id_producto = ? AND id_cliente = ?";
     db.query(sqlDelete, [id_producto, id_cliente], (err, result) => {
-        console.log(err);
+        if (err) console.log(err);
     });
 
     const sqlSelect = "SELECT * FROM carritos JOIN productos on carritos.id_producto = productos.id_producto WHERE id_cliente = ?";
+    db.query(sqlSelect, id_cliente, (err, result) => {
+        res.send(result);
+    });
+});
+
+app.post('/insert/orden', (req, res) => {
+    const id_orden = Date.now();
+    const productos = req.body.productos;
+    const fecha = new Date().toISOString().split('T')[0];
+    let total = 0;
+
+    productos.forEach(producto => {
+        total += producto.precio_por_kg * producto.cantidad;
+    });
+
+    let sqlInsert = "INSERT INTO ordenes (id_orden, id_cliente, estado, fecha_de_pedido, total) VALUES (?, ?, 'En proceso', ?, ?)";
+    db.query(sqlInsert, [id_orden, productos[0].id_cliente, fecha, total], (err, result) => {
+        if (err) console.log(err);
+    });
+
+    productos.forEach(producto => {
+        sqlInsert = "INSERT INTO detalles_orden (id_orden, id_producto, cantidad, precio) VALUES (?, ?, ?, ?)"
+        db.query(sqlInsert, [id_orden, producto.id_producto, producto.cantidad, producto.cantidad * producto.precio_por_kg], (err, result) => {
+            if (err) console.log(err);
+        });
+    });
+
+    const sqlDelete = `DELETE FROM carritos WHERE id_cliente = ?`
+    db.query(sqlDelete, productos[0].id_cliente, (err, result) => {
+        if (err) console.log(err);
+    })
+
+    const sqlSelect = "SELECT * FROM carritos JOIN productos on carritos.id_producto = productos.id_producto WHERE id_cliente = ?";
+    db.query(sqlSelect, productos[0].id_cliente, (err, result) => {
+        res.send(result);
+    });
+});
+
+app.post('/insert/ordenclick', (req, res) => {
+    const id_orden = Date.now();
+    const fecha = new Date().toISOString().split('T')[0];
+    const id_producto = req.body.id_producto;
+    const cantidad = req.body.cantidad;
+    const precio_por_kg = req.body.precio_por_kg;
+    const user_email = req.body.user_email;
+    const id_cliente = hash(user_email);
+
+    let sqlInsert = "INSERT INTO ordenes (id_orden, id_cliente, estado, fecha_de_pedido, total) VALUES (?, ?, 'En proceso', ?, ?)";
+    db.query(sqlInsert, [id_orden, id_cliente, fecha, cantidad * precio_por_kg], (err, result) => {
+        if (err) console.log(err);
+    });
+
+    sqlInsert = "INSERT INTO detalles_orden (id_orden, id_producto, cantidad, precio) VALUES (?, ?, ?, ?)"
+    db.query(sqlInsert, [id_orden, id_producto, cantidad, cantidad * precio_por_kg], (err, result) => {
+        if (err) console.log(err);
+    });
+});
+
+app.post('/get/pedidos', (req, res) => {
+    const user_email = req.body.user_email;
+    const id_cliente = hash(user_email);
+
+    const sqlSelect = "SELECT ordenes.id_orden, fecha_de_pedido, producto, cantidad, estado, total FROM ordenes JOIN detalles_orden on ordenes.id_orden = detalles_orden.id_orden JOIN productos on detalles_orden.id_producto = productos.id_producto WHERE id_cliente = ? ORDER BY ordenes.id_orden DESC"
     db.query(sqlSelect, id_cliente, (err, result) => {
         res.send(result);
     });

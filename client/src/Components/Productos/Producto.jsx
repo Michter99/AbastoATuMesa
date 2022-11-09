@@ -18,6 +18,18 @@ function Producto({ id_producto, producto, categoria, precio_por_kg, archivo_ima
         cantidadSelect.current.value = 1;
     };
 
+    const comprar = (e) => {
+        e.preventDefault();
+        window.open('https://stripe.com/mx', '_blank', 'resizable=yes');
+        Axios.post("http://localhost:3001/insert/ordenclick", {
+            id_producto: id_producto,
+            cantidad: cantidadSelect.current.value,
+            precio_por_kg: precio_por_kg,
+            user_email: getAuth().currentUser.email
+        }).then(() => { });
+        cantidadSelect.current.value = 1;
+    }
+
     return (
         <div className="productCard col-xl-3 col-lg-4 col-sm-6 mb-3 mt-5">
             <img className="img-fluid" src={require("../Assets/" + archivo_imagen)} alt="prodImg" />
@@ -41,7 +53,7 @@ function Producto({ id_producto, producto, categoria, precio_por_kg, archivo_ima
                     <option value="10">10</option>
                 </select>
                 <button id="carrBtn" onClick={agregarCarrito}>CARRITO</button>
-                <button id="comprarBtn">COMPRAR</button>
+                <button id="comprarBtn" onClick={comprar}>COMPRAR</button>
             </div>
         </div>
     );
