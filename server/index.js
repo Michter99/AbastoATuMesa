@@ -5,10 +5,10 @@ const app = express();
 const mysql = require('mysql');
 
 var db = mysql.createConnection({
-    host: "abasto.mysql.database.azure.com",
-    user: "abasto_root@abasto",
-    password: "MXPanamericana22",
-    database: "abasto_db",
+    host: "",
+    user: "",
+    password: "",
+    database: "",
     port: 3306
 });
 
