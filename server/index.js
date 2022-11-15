@@ -5,10 +5,11 @@ const app = express();
 const mysql = require('mysql');
 
 var db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'abasto_db',
+    host: "abasto.mysql.database.azure.com",
+    user: "abasto_root@abasto",
+    password: "MXPanamericana22",
+    database: "abasto_db",
+    port: 3306
 });
 
 app.use(cors());
@@ -44,7 +45,7 @@ app.post('/get/carrito', (req, res) => {
 });
 
 app.get('/get/productos', (req, res) => {
-    const sqlSelect = "SELECT * FROM productos JOIN categorias ON productos.id_categoria = categorias.id_categoria;";
+    const sqlSelect = "SELECT * FROM productos JOIN categorias ON productos.id_categoria = categorias.id_categoria WHERE kg_en_existencia >= 10;";
     db.query(sqlSelect, (err, result) => {
         res.send(result);
     });
@@ -52,7 +53,7 @@ app.get('/get/productos', (req, res) => {
 
 app.get('/get/productosFiltrados/:producto', (req, res) => {
     const producto = req.params.producto;
-    const sqlSelect = "SELECT * FROM productos JOIN categorias ON productos.id_categoria = categorias.id_categoria WHERE producto LIKE '%" + producto + "%';";
+    const sqlSelect = "SELECT * FROM productos JOIN categorias ON productos.id_categoria = categorias.id_categoria WHERE producto LIKE '%" + producto + "%' AND kg_en_existencia >= 10;";
     db.query(sqlSelect, producto, (err, result) => {
         res.send(result);
     });

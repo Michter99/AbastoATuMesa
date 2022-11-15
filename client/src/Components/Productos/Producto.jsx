@@ -32,7 +32,7 @@ function Producto({ id_producto, producto, categoria, precio_por_kg, archivo_ima
 
     return (
         <div className="productCard col-xl-3 col-lg-4 col-sm-6 mb-3 mt-5">
-            <img className="img-fluid" src={require("../Assets/" + archivo_imagen)} alt="prodImg" />
+            <img className="img-fluid" src={archivo_imagen} alt="prodImg" />
             <div className="subdiv-prodCard">
                 <p className="catProd">{categoria}</p>
                 <p className="nombreProd">{producto} Kg</p>

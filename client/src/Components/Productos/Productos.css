@@ -6,6 +6,11 @@
     font-weight: 700;
 }
 
+.productCard img {
+    height: 230px;
+    width: 100%;
+}
+
 .subdiv-prodCard {
     border: 2px solid #0071DC;
     font-family: "DM Sans";

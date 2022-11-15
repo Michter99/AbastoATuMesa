@@ -8,7 +8,7 @@ function ProductoCarrito(props) {
 
     return (
         <div className="cartCard col-xl-3 col-lg-4 col-sm-6 mb-3 mt-5">
-            <img className="img-fluid" src={require("../Assets/" + props.archivo_imagen)} alt="prodImg" />
+            <img className="img-fluid" src={props.archivo_imagen} alt="prodImg" />
             <div className="subdiv-prodCard">
                 <p className="catProd">{props.categoria}</p>
                 <p className="nombreProd">{props.producto}</p>
