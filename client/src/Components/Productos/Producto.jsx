@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import Axios from "axios";
 import './Productos.css'
 
-function Producto({ id_producto, producto, categoria, precio_por_kg, archivo_imagen }) {
+function Producto({ id_producto, producto, categoria, precio_por_kg, archivo_imagen, domicilio }) {
 
     const cantidadSelect = useRef(1);
 
@@ -20,14 +20,17 @@ function Producto({ id_producto, producto, categoria, precio_por_kg, archivo_ima
 
     const comprar = (e) => {
         e.preventDefault();
-        window.open('https://stripe.com/mx', '_blank', 'resizable=yes');
-        Axios.post("http://localhost:3001/insert/ordenclick", {
-            id_producto: id_producto,
-            cantidad: cantidadSelect.current.value,
-            precio_por_kg: precio_por_kg,
-            user_email: getAuth().currentUser.email
-        }).then(() => { });
-        cantidadSelect.current.value = 1;
+        if (domicilio) {
+            window.open('https://stripe.com/mx', '_blank', 'resizable=yes');
+            Axios.post("http://localhost:3001/insert/ordenclick", {
+                id_producto: id_producto,
+                cantidad: cantidadSelect.current.value,
+                precio_por_kg: precio_por_kg,
+                user_email: getAuth().currentUser.email
+            }).then(() => { });
+            cantidadSelect.current.value = 1;
+        } else
+            alert("Debe configurar su domicilio primero en sección de Cuenta");
     }
 
     return (

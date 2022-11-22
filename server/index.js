@@ -5,10 +5,10 @@ const app = express();
 const mysql = require('mysql');
 
 var db = mysql.createConnection({
-    host: "",
-    user: "",
-    password: "",
-    database: "",
+    host: "abasto.mysql.database.azure.com",
+    user: "abasto_root@abasto",
+    password: "MXPanamericana22",
+    database: "abasto_db",
     port: 3306
 });
 
@@ -23,6 +23,14 @@ function hash(input) {
     }
     return output;
 }
+
+app.post('/get/domicilio', (req, res) => {
+    user_id = hash(req.body.user_email);
+    const sqlSelect = "SELECT direccion FROM clientes WHERE id_cliente = ?";
+    db.query(sqlSelect, user_id, (err, result) => {
+        res.send(result);
+    });
+});
 
 app.post('/insert/carrito', (req, res) => {
     const user_email = req.body.user_email;

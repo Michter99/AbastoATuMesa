@@ -7,6 +7,7 @@ import { useMemo } from "react";
 const Carrito = () => {
 
     const [productos, setProductos] = useState([]);
+    const [domicilioConfigurado, setDomicilioConfigurado] = useState(false);
 
     const calcularTotal = useMemo(() => {
         let total = 0;
@@ -35,12 +36,15 @@ const Carrito = () => {
     }, []);
 
     const comprarProductos = () => {
-        window.open('https://stripe.com/mx', '_blank', 'resizable=yes');
-        Axios.post("http://localhost:3001/insert/orden", {
-            productos: productos
-        }).then((response) => {
-            setProductos(response.data)
-        });
+        if (domicilioConfigurado) {
+            window.open('https://stripe.com/mx', '_blank', 'resizable=yes');
+            Axios.post("http://localhost:3001/insert/orden", {
+                productos: productos
+            }).then((response) => {
+                setProductos(response.data)
+            });
+        } else
+            alert("Debe configurar su domicilio primero en sección de Cuenta");
     };
 
     useEffect(() => {
@@ -48,6 +52,14 @@ const Carrito = () => {
             user_email: getAuth().currentUser.email
         }).then((response) => {
             setProductos(response.data);
+        });
+        Axios.post("http://localhost:3001/get/domicilio", {
+            user_email: getAuth().currentUser.email
+        }).then((response) => {
+            if (response.data[0].direccion)
+                setDomicilioConfigurado(true);
+            else
+                setDomicilioConfigurado(false);
         });
     }, []);
 

@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Producto from "./Producto";
+import { getAuth } from "firebase/auth";
 
 function Productos() {
 
     const [productos, setProductos] = useState([]);
     const [filterCondition, setFilterCondition] = useState("Ninguno");
     const [productoABuscar, setProductoABuscar] = useState("");
+    const [domicilioConfigurado, setDomicilioConfigurado] = useState(false);
 
     useEffect(() => {
         Axios.get("http://localhost:3001/get/productos").then((response) => {
             setProductos(response.data);
+        });
+
+        Axios.post("http://localhost:3001/get/domicilio", {
+            user_email: getAuth().currentUser.email
+        }).then((response) => {
+            if (response.data[0].direccion)
+                setDomicilioConfigurado(true);
+            else
+                setDomicilioConfigurado(false);
         });
     }, []);
 
@@ -60,7 +71,7 @@ function Productos() {
             <div className="row">
                 {productos.length > 0 ? (productos.map((producto) => {
                     if (producto.categoria === filterCondition || filterCondition === "Ninguno")
-                        return <Producto key={producto.id_producto} {...producto} />
+                        return <Producto key={producto.id_producto} {...producto} domicilio={domicilioConfigurado} />
                 })) : <h1 style={{ color: 'black' }}>Productos no encontrados</h1>}
             </div>
         </div>

@@ -12,6 +12,11 @@
     border-style: none solid solid solid;
 }
 
+.cartCard img {
+    height: 230px;
+    width: 100%;
+}
+
 .carr-subtotal h2 {
     font-weight: 700;
 }
