@@ -147,9 +147,17 @@ app.post('/insert/orden', (req, res) => {
         if (err) console.log(err);
     });
 
+    let sqlUpdate = "";
+
     productos.forEach(producto => {
+
         sqlInsert = "INSERT INTO detalles_orden (id_orden, id_producto, cantidad, precio) VALUES (?, ?, ?, ?)"
         db.query(sqlInsert, [id_orden, producto.id_producto, producto.cantidad, producto.cantidad * producto.precio_por_kg], (err, result) => {
+            if (err) console.log(err);
+        });
+
+        sqlUpdate = "UPDATE productos SET kg_en_existencia = kg_en_existencia - ? WHERE id_producto = ?";
+        db.query(sqlUpdate, [producto.cantidad, producto.id_producto], (err, result) => {
             if (err) console.log(err);
         });
     });
@@ -183,6 +191,12 @@ app.post('/insert/ordenclick', (req, res) => {
     db.query(sqlInsert, [id_orden, id_producto, cantidad, cantidad * precio_por_kg], (err, result) => {
         if (err) console.log(err);
     });
+
+    const sqlUpdate = "UPDATE productos SET kg_en_existencia = kg_en_existencia - ? WHERE id_producto = ?";
+    db.query(sqlUpdate, [cantidad, id_producto], (err, result) => {
+        if (err) console.log(err);
+    });
+
 });
 
 app.post('/get/pedidos', (req, res) => {
